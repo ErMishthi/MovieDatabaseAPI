@@ -50,7 +50,7 @@ namespace MovieDatabaseAPI.Controllers
 
             if (movies == null || movies.Count == 0)
             {
-                return NotFound();
+                return Ok(new List<Movie>());
             }
 
             return Ok( movies);
@@ -58,11 +58,11 @@ namespace MovieDatabaseAPI.Controllers
 
         // GET: api/genres/Action/movies
         [HttpGet("genres/{genre}/movies")]
-        public async Task<ActionResult<IEnumerable<Movie>>> GetMoviesByGenre(string genre)
+        public async Task<IActionResult> GetMoviesByGenre(string genre)
         {
-            var movies = _context.Movies
-            .Where(m => m.MovieGenres.Any(g => g.Genre.Name == genre))
-            .ToList();
+            var movies = await _context.Movies
+                .Where(m => m.MovieGenres.Any(g => g.Genre.Name == genre))
+                .ToListAsync();
 
             return Ok(movies);
         }

@@ -6,10 +6,11 @@ namespace MovieDatabaseAPI.Models
     {
         public int Id { get; set; }
 
-        [Required]
         [MaxLength(100)]
+        [Required(ErrorMessage = "Title is required")]
         public string Title { get; set; }
 
+        [Required(ErrorMessage = "Release date is required")]
         public DateTime ReleaseDate { get; set; }
         public float Rating { get; set; }
 
@@ -25,7 +26,7 @@ namespace MovieDatabaseAPI.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Name is required")]
         [MaxLength(100)]
         public string Name { get; set; }
 
@@ -39,7 +40,7 @@ namespace MovieDatabaseAPI.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Name is required")]
         [MaxLength(100)]
         public string Name { get; set; }
 
@@ -51,7 +52,7 @@ namespace MovieDatabaseAPI.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Name is required")]
         [MaxLength(100)]
         public string Name { get; set; }
 
@@ -63,8 +64,8 @@ namespace MovieDatabaseAPI.Models
     {
         public int Id { get; set; }
 
-        [Required]
-        [MaxLength(500)]
+        [Required(ErrorMessage = "Review text is required")]
+        [MaxLength(500, ErrorMessage = "Review text cannot exceed 500 characters")]
         public string Text { get; set; }
 
         public int Rating { get; set; }

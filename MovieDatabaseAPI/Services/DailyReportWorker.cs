@@ -19,9 +19,23 @@ namespace MovieDatabaseAPI.Worker
             {
                 _logger.LogInformation("Generating and publishing daily report...");
 
-                // Your report generation logic here
+                while (!stoppingToken.IsCancellationRequested)
+                {
+                    // Generate and publish daily report
+                    var currentTime = DateTime.Now;
+                    var reportMessage = $"Daily report generated at: {currentTime}";
 
-                await Task.Delay(TimeSpan.FromDays(1), stoppingToken); // Run daily
+                    // Log the report message
+                    _logger.LogInformation(reportMessage);
+
+                    // Simulate some processing time (e.g., writing to a file, sending an email)
+                    await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken); // Simulated processing time
+
+                    // Delay until the next day
+                    var nextDay = currentTime.AddDays(1).Date;
+                    var timeUntilNextDay = nextDay - currentTime;
+                    await Task.Delay(timeUntilNextDay, stoppingToken);
+                }
             }
         }
     }
